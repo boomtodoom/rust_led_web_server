@@ -1,0 +1,25 @@
+<!-- A webpage allowing for editing of the config file -->
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Config</title>
+        <link rel="stylesheet" type="text/css" href="../css/config.css">
+    </head>
+    <body>
+        <h1>Config</h1>
+        <form action="/update_config" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <label for="database">Database:</label>
+            <input type="text" id="database" name="database" required><br>
+            <label for="host">Host:</label>
+            <input type="text" id="host" name="host" required><br>
+            <label for="port">Port:</label>
+            <input type="text" id="port" name="port" required><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

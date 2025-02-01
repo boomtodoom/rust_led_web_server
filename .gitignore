@@ -1,3 +1,4 @@
 Cargo.lock
 target/*
 target/.rustc_info.json
+credentials.txt
