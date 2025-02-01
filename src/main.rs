@@ -4,8 +4,12 @@ use std::{
     io::{prelude::*, BufReader},
     net::{TcpListener, TcpStream},
     collections::HashMap,
+    thread,
+    time::Duration,
 };
 use log::{info, error};
+use rpi_led_panel::{RGBMatrix, RGBMatrixConfig};
+use rand::Rng;
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Config {
@@ -49,6 +53,27 @@ fn main() {
     let address = format!("{}:{}", config.host, config.port);
     let listener = TcpListener::bind(&address).unwrap();
     info!("Server running on {}", address);
+
+    // Start a new thread for the LED panel display
+    thread::spawn(|| {
+        let mut config = RGBMatrixConfig::default();
+        config.rows = 64;
+        config.cols = 128;
+        let (mut matrix, mut canvas) = RGBMatrix::new(config,0).expect("Failed to create LED panel");
+
+        let mut rng = rand::thread_rng();
+
+        let pixel_array =
+
+        loop {
+            for x in 0..128 {
+                for y in 0..64 {
+                    canvas.set_pixel(x, y, rng.gen::<u8>(), rng.gen::<u8>(), rng.gen::<u8>());
+                }
+            }
+            canvas = matrix.update_on_vsync(canvas);
+        };
+    });
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
